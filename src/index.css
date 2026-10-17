@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-bone: #F4F4F0;
+  --color-bone-surface: #EAEAE4;
+  --color-slate-deep: #0F172A;
+  --color-slate-muted: #334155;
+  --color-teal-clinical: #0D9488;
+  --color-teal-hover: #0F766E;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    font-family: var(--font-sans);
+    background-color: #F4F4F0;
+    color: #0F172A;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: var(--font-heading);
+    letter-spacing: -0.025em;
+  }
+}
+
+.lab-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.lab-dots-bg {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.14) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(244, 244, 240, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 244, 240, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+input[type="range"].clinical-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #EAEAE4;
+  border: 1px solid rgba(15, 23, 42, 0.2);
+}
+
+input[type="range"].clinical-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #0D9488;
+  border: 2px solid #0F172A;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+input[type="range"].clinical-slider::-webkit-slider-thumb:hover {
+  background: #0F766E;
+  transform: scale(1.08);
+}
+
+input[type="range"].clinical-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #0D9488;
+  border: 2px solid #0F172A;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
