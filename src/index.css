@@ -2,7 +2,7 @@
 
 @theme {
   --font-heading: "Space Grotesk", "Inter", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", "Plus Jakarta Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   --color-bone: #F4F4F0;
@@ -25,13 +25,32 @@
     font-family: var(--font-heading);
     letter-spacing: -0.025em;
   }
+
+  :focus-visible {
+    outline: 2px solid #0D9488;
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: #0D9488;
+    color: #F4F4F0;
+  }
 }
+
+/* ------------------------------------------------------------------ */
+/* Structural surfaces                                                 */
+/* ------------------------------------------------------------------ */
 
 .lab-grid-bg {
   background-image:
-    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(15, 23, 42, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.055) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+.lab-grid-fade {
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 35%, #000 55%, transparent 100%);
 }
 
 .lab-dots-bg {
@@ -46,19 +65,95 @@
   background-size: 32px 32px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Petri dish radar                                                    */
+/* ------------------------------------------------------------------ */
+
+@keyframes radar-sweep {
+  to { transform: rotate(360deg); }
+}
+
+.radar-sweep {
+  background: conic-gradient(
+    from 0deg,
+    rgba(13, 148, 136, 0.55) 0deg,
+    rgba(13, 148, 136, 0.08) 42deg,
+    transparent 70deg,
+    transparent 360deg
+  );
+  animation: radar-sweep 4.2s linear infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Terminal feed                                                       */
+/* ------------------------------------------------------------------ */
+
+.terminal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(13, 148, 136, 0.6) rgba(244, 244, 240, 0.06);
+}
+
+.terminal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.terminal-scroll::-webkit-scrollbar-track {
+  background: rgba(244, 244, 240, 0.06);
+}
+
+.terminal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(13, 148, 136, 0.6);
+}
+
+@keyframes log-line-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.log-line-in {
+  animation: log-line-in 260ms ease-out both;
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.terminal-cursor {
+  animation: cursor-blink 1s steps(1) infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* Live status pulse                                                   */
+/* ------------------------------------------------------------------ */
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.soft-pulse {
+  animation: soft-pulse 1.8s ease-in-out infinite;
+}
+
+/* ------------------------------------------------------------------ */
+/* ROI slider (clinical slider)                                        */
+/* ------------------------------------------------------------------ */
+
 input[type="range"].clinical-slider {
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
   background: #EAEAE4;
   border: 1px solid rgba(15, 23, 42, 0.2);
+  cursor: pointer;
 }
 
 input[type="range"].clinical-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   background: #0D9488;
   border: 2px solid #0F172A;
   cursor: pointer;
@@ -71,13 +166,37 @@ input[type="range"].clinical-slider::-webkit-slider-thumb:hover {
 }
 
 input[type="range"].clinical-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   background: #0D9488;
   border: 2px solid #0F172A;
-  cursor: pointer;
   border-radius: 0;
+  cursor: pointer;
 }
+
+input[type="range"].clinical-slider::-moz-range-thumb:hover {
+  background: #0F766E;
+}
+
+/* ------------------------------------------------------------------ */
+/* Architecture flow connectors                                        */
+/* ------------------------------------------------------------------ */
+
+.flow-connector {
+  background-image: linear-gradient(
+    to bottom,
+    #0D9488 0%,
+    #0D9488 6px,
+    rgba(13, 148, 136, 0.25) 6px,
+    rgba(13, 148, 136, 0.25) 12px
+  );
+  background-size: 2px 12px;
+  background-repeat: repeat-y;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion                                                      */
+/* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
@@ -85,5 +204,9 @@ input[type="range"].clinical-slider::-moz-range-thumb {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .radar-sweep {
+    display: none;
   }
 }
